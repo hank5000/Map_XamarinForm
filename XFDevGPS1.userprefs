@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{E4A9007A-C3FD-4879-8EBE-435A006A3C62}|Default">
+  <MonoDevelop.Ide.ItemProperties.XFDevGPS1.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.BE70348E-FDB0-4ADC-80A5-B00C96018B8F" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="XFDevGPS1/XFDevGPS1Page.xaml.cs">
+    <Files>
+      <File FileName="XFDevGPS1/XFDevGPS1Page.xaml" Line="14" Column="1" />
+      <File FileName="XFDevGPS1/XFDevGPS1Page.xaml.cs" Line="84" Column="3" />
+      <File FileName="XFDevGPS1/map.html" Line="43" Column="26" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ActiveRuntime="Mono 5.0.0.78" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.XFDevGPS1.Droid PreferredExecutionTarget="Android.Android_Accelerated_x86" />
+</Properties>
