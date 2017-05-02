@@ -5,6 +5,6 @@ namespace XFDevGPS1
 {
 	public interface ISQLite
 	{
-		SQLiteConnection GetConnection();
+		SQLiteConnection GetConnection(string dbName);
 	}
 }

@@ -42,8 +42,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IBaseUrl.cs" />
     <Compile Include="ISQLite.cs" />
-    <Compile Include="DoggyDataBase.cs" />
     <Compile Include="MyRecord.cs" />
+    <Compile Include="DoggyDataBase.cs" />
+    <Compile Include="ETrackDatabase.cs" />
+    <Compile Include="ETrackItem.cs" />
+    <Compile Include="GPSStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

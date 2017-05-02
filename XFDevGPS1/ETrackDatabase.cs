@@ -3,9 +3,10 @@ using SQLite;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
+
 namespace XFDevGPS1
 {
-	public class DoggyDataBase
+	public class ETrackDatabase
 	{
 		static object locker = new object();
 
@@ -13,39 +14,39 @@ namespace XFDevGPS1
 
 		SQLiteConnection database;
 
-		public DoggyDataBase()
+		public ETrackDatabase()
 		{
-			database = DependencyService.Get<ISQLite>().GetConnection("doggy.db3");
+			database = DependencyService.Get<ISQLite>().GetConnection("etrack.db");
 			DBPath = database.DatabasePath;
 			// create the tables
-			database.CreateTable<MyRecord>();
+			database.CreateTable<ETrackItem>();
 		}
 
-		public IEnumerable<MyRecord> GetItems()
+		public IEnumerable<ETrackItem> GetItems()
 		{
 			lock (locker)
 			{
-				return (from i in database.Table<MyRecord>() select i).ToList();
+				return (from i in database.Table<ETrackItem>() select i).ToList();
 			}
 		}
 
-		public IEnumerable<MyRecord> GetItemsNotDone()
+		public IEnumerable<ETrackItem> GetItemsNotDone()
 		{
 			lock (locker)
 			{
-				return database.Query<MyRecord>("SELECT * FROM [MyRecord] WHERE [Done] = 0");
+				return database.Query<ETrackItem>("SELECT * FROM [ETrackItem] WHERE [Done] = 0");
 			}
 		}
 
-		public MyRecord GetItem(int id)
+		public ETrackItem GetItem(int id)
 		{
 			lock (locker)
 			{
-				return database.Table<MyRecord>().FirstOrDefault(x => x.ID == id);
+				return database.Table<ETrackItem>().FirstOrDefault(x => x.ID == id);
 			}
 		}
 
-		public int SaveItem(MyRecord item)
+		public int SaveItem(ETrackItem item)
 		{
 			lock (locker)
 			{
@@ -65,7 +66,7 @@ namespace XFDevGPS1
 		{
 			lock (locker)
 			{
-				return database.Delete<MyRecord>(id);
+				return database.Delete<ETrackItem>(id);
 			}
 		}
 

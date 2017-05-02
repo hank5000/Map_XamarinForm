@@ -16,9 +16,9 @@ namespace XFDevGPS1.Droid
 		{
 		}
 
-		public SQLiteConnection GetConnection()
+		public SQLiteConnection GetConnection(string dbName)
 		{
-			var sqliteFilename = "DoggyDB.db3";
+			var sqliteFilename = dbName;
 			string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // Documents folder
 			var path = Path.Combine(documentsPath, sqliteFilename);
 			var conn = new SQLite.SQLiteConnection(path);

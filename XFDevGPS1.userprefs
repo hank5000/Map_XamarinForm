@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{E4A9007A-C3FD-4879-8EBE-435A006A3C62}|Default">
   <MonoDevelop.Ide.ItemProperties.XFDevGPS1.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.975f2944395beddd70aec1deef7dc7342f024a63" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="XFDevGPS1/DoggyDataBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="XFDevGPS1/GPSStatus.cs">
     <Files>
-      <File FileName="XFDevGPS1/XFDevGPS1Page.xaml.cs" Line="28" Column="38" />
-      <File FileName="XFDevGPS1/DoggyDataBase.cs" Line="23" Column="24" />
-      <File FileName="XFDevGPS1/MyRecord.cs" Line="18" Column="20" />
+      <File FileName="XFDevGPS1/XFDevGPS1Page.xaml" Line="10" Column="5" />
+      <File FileName="XFDevGPS1/XFDevGPS1Page.xaml.cs" Line="97" Column="3" />
+      <File FileName="XFDevGPS1/ETrackDatabase.cs" Line="1" Column="1" />
+      <File FileName="XFDevGPS1/GPSStatus.cs" Line="35" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
@@ -13,5 +14,5 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.XFDevGPS1.Droid PreferredExecutionTarget="Android.Android_Accelerated_x86" />
+  <MonoDevelop.Ide.ItemProperties.XFDevGPS1.Droid PreferredExecutionTarget="Android.0a2bff35" />
 </Properties>

@@ -9,39 +9,47 @@ using System.Reflection;
 using System.IO;
 using System.Linq;
 
+
+
 namespace XFDevGPS1
 {
 	public partial class XFDevGPS1Page : ContentPage
 	{
 		public class BaseUrlWebView : WebView { }
 		DoggyDataBase fooDoggyDatabase;
-
-        bool bInitialized = false;
+        ETrackDatabase eTrackDatabase;
+		int count = 0;
 		public XFDevGPS1Page()
 		{
 			InitializeComponent();
-			fooDoggyDatabase = new DoggyDataBase();
-			path.Text = $"路徑: {fooDoggyDatabase.DBPath}";
+			//fooDoggyDatabase = new DoggyDataBase();
+            eTrackDatabase = new ETrackDatabase();
+
+			path.Text = $"路徑: {eTrackDatabase.DBPath}";
+
 			writeBtn.Clicked += (s, e) =>
             {
-                fooDoggyDatabase.DeleteAll();
-                fooDoggyDatabase.SaveItem(new MyRecord
-                {
-                    UserName = "Vulcan Lee",
-                    SelectItem = "一顆蘋果",
-                    Done = false,
+				//eTrackDatabase.DeleteAll();
+				eTrackDatabase.SaveItem(new ETrackItem
+				{
+					car_id = "hank",
+					user_id = count++,
+					gps_latitude = 22.101,
+					gps_longitude = -120.111,
                 });
+
 				writeMessage.Text = $"資料已經寫入資料表內";
             };
+
             readBtn.Clicked += (s, e) =>
             {
-                var fooItem = fooDoggyDatabase.GetItems().FirstOrDefault();
+				var trackItem = eTrackDatabase.GetItems().FirstOrDefault();
 
-				readMessage.Text = $"從資料表內讀取: {fooItem.UserName} / {fooItem.SelectItem}";
-            };
+				readMessage.Text = $"從資料表內讀取: {trackItem.car_id} / {trackItem.user_id} / {trackItem.gps_latitude} / {trackItem.gps_longitude} / {trackItem.date}";
 
-
-
+				eTrackDatabase.DeleteItem(trackItem.ID);
+			
+			};
 
 
 			Task.Run(() => StartListening());
@@ -86,19 +94,34 @@ namespace XFDevGPS1
             WebMap.Eval(string.Format("moveMark({0}, {1})", lat, lng));
         }
 
+		private GPSStatus gpsStatus;
+
+
 		private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
 		{
 			Device.BeginInvokeOnMainThread(() =>
 			{
 				var test = e.Position;
 
-				listenLabel.Text = "Full: Lat: " + test.Latitude.ToString() + " Long: " + test.Longitude.ToString();
-                listenLabel.Text += "\n" + $"Time: {test.Timestamp.ToLocalTime().ToString()}";
-				listenLabel.Text += "\n" + $"Heading: {test.Heading.ToString()}";
-                listenLabel.Text += "\n" + $"Speed: {(test.Speed*1.60931).ToString()}";
-				listenLabel.Text += "\n" + $"Accuracy: {test.Accuracy.ToString()}";
-				listenLabel.Text += "\n" + $"Altitude: {test.Altitude.ToString()}";
-				listenLabel.Text += "\n" + $"AltitudeAccuracy: {test.AltitudeAccuracy.ToString()}";
+				if (gpsStatus == null)
+				{
+					gpsStatus = new GPSStatus
+					{
+						lat = test.Latitude,
+						lng = test.Longitude,
+						speed = Convert.ToInt32(test.Speed),
+						timestamp = test.Timestamp.ToLocalTime().ToString(),
+					};
+				}
+				else
+				{
+					gpsStatus.update(test.Latitude, test.Longitude, Convert.ToInt32(test.Speed), test.Timestamp.ToLocalTime().ToString());
+				}
+
+				listenLabel.Text = "Full: Lat: " + gpsStatus.lat.ToString() + " Long: " + gpsStatus.lng.ToString();
+				listenLabel.Text += "\n" + $"Time: {gpsStatus.timestamp}";
+				listenLabel.Text += "\n" + $"Speed: {gpsStatus.speed.ToString()}";
+				listenLabel.Text += "\n" + $"Mileage: {gpsStatus.mileage}";
 
 				MoveMark(test.Latitude, test.Longitude);
                 //SetCenter(test.Latitude, test.Longitude);
