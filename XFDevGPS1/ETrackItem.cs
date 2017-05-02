@@ -18,8 +18,8 @@ namespace XFDevGPS1
         public int ID {get;set;}
 		public long user_id { get; set; } = DEFAULT_LONG;
 		public string car_id { get; set; } = DEFAULT_STRING;
-		public long date { get; set; } = DEFAULT_LONG;
-		public int time_interval { get; set; } = DEFAULT_INT;
+		public long dt { get; set; } = DEFAULT_LONG;
+		public int time_interval { get; set; } = 0;
 		public int engine_load { get; set; } = DEFAULT_INT;
         public int engine_rpm { get; set; } = DEFAULT_INT;
         public int vehicle_speed { get; set; } = DEFAULT_INT;

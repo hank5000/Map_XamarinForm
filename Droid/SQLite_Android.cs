@@ -14,6 +14,7 @@ namespace XFDevGPS1.Droid
 	{
 		public SQLite_Android()
 		{
+			
 		}
 
 		public SQLiteConnection GetConnection(string dbName)
