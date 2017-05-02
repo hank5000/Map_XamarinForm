@@ -7,18 +7,42 @@ using Xam.Plugin.Abstractions;
 
 using System.Reflection;
 using System.IO;
-
+using System.Linq;
 
 namespace XFDevGPS1
 {
 	public partial class XFDevGPS1Page : ContentPage
 	{
 		public class BaseUrlWebView : WebView { }
+		DoggyDataBase fooDoggyDatabase;
 
         bool bInitialized = false;
 		public XFDevGPS1Page()
 		{
 			InitializeComponent();
+			fooDoggyDatabase = new DoggyDataBase();
+			path.Text = $"路徑: {fooDoggyDatabase.DBPath}";
+			writeBtn.Clicked += (s, e) =>
+            {
+                fooDoggyDatabase.DeleteAll();
+                fooDoggyDatabase.SaveItem(new MyRecord
+                {
+                    UserName = "Vulcan Lee",
+                    SelectItem = "一顆蘋果",
+                    Done = false,
+                });
+				writeMessage.Text = $"資料已經寫入資料表內";
+            };
+            readBtn.Clicked += (s, e) =>
+            {
+                var fooItem = fooDoggyDatabase.GetItems().FirstOrDefault();
+
+				readMessage.Text = $"從資料表內讀取: {fooItem.UserName} / {fooItem.SelectItem}";
+            };
+
+
+
+
 
 			Task.Run(() => StartListening());
 

@@ -7,7 +7,7 @@
 	<key>CFBundleName</key>
 	<string>XFDevGPS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.hankwu.xfdevgps</string>
+	<string>com.hankwu.test</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>

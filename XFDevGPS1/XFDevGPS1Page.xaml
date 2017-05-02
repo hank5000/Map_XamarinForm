@@ -3,10 +3,19 @@
   
 	<StackLayout>
     <StackLayout.Padding>20</StackLayout.Padding>   
-        
+    <Label x:Name="path" Text="path"/>
+    <Label x:Name="writeMessage" Text="write message"/>
+
+    <Label x:Name="readMessage" Text="path"/>
+
+	<Button x:Name="writeBtn" Text="write"/>
+	<Button x:Name="readBtn" Text="read"/>
+		
 	<Label x:Name="listenLabel" Text="123"/>
 
 	<WebView x:Name="WebMap" />
+
+
 		
 	</StackLayout>
 
