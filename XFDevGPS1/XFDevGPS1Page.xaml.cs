@@ -9,22 +9,27 @@ using System.Reflection;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-
+using System.Net;
+using System.Text;
+using RestSharp;
+using System.Diagnostics;
 
 namespace XFDevGPS1
 {
 	public partial class XFDevGPS1Page : ContentPage
 	{
-		public class BaseUrlWebView : WebView { }
-		DoggyDataBase fooDoggyDatabase;
         ETrackDatabase eTrackDatabase;
 		int count = 0;
+		string cloudBaseUrl = "";
+		string cloudPath = "";
+
+
 		public XFDevGPS1Page()
 		{
 			InitializeComponent();
 			//fooDoggyDatabase = new DoggyDataBase();
             eTrackDatabase = new ETrackDatabase();
-
+			eTrackDatabase.DeleteAll();
 			path.Text = $"路徑: {eTrackDatabase.DBPath}";
 
 			writeBtn.Clicked += (s, e) =>
@@ -32,8 +37,8 @@ namespace XFDevGPS1
 				//eTrackDatabase.DeleteAll();
 				eTrackDatabase.SaveItem(new ETrackItem
 				{
-					car_id = "hank",
-					user_id = count++,
+					car_id = "",
+					user_id = 26,
 					gps_latitude = 22.101,
 					gps_longitude = -120.111,
                 });
@@ -82,18 +87,50 @@ namespace XFDevGPS1
 			CrossGeolocator.Current.PositionChanged += Current_PositionChanged;
 		}
 
-		async Task UploadToS3(ETrackItem[] items)
+		void UploadToS3(ETrackItem[] items)
 		{
+			bool bFirst = true;
+			string totalString = "";
 			foreach (var item in items)
 			{
-				string json = JsonConvert.SerializeObject(item);
+				string json = new EtrackJson(item).jsonString;
+				if (bFirst)
+				{
+					bFirst = false;
+				}
+				else
+				{
+					totalString += ",";
+				}
+				totalString += json;
+			}
+			string filename = "log.txt";
+			DependencyService.Get<ISaveAndLoad>().SaveText(filename,totalString);
+			Debug.WriteLine(totalString);
+
+
+			var client = new RestClient(cloudBaseUrl);
+			var request = new RestRequest(cloudPath, Method.POST);
+
+			string filePath = DependencyService.Get<ISaveAndLoad>().GetPath(filename);
+			request.AddFile("file", filePath);
+			var respone = client.ExecuteAsync<VehicleCloudResponse>(request, (IRestResponse<VehicleCloudResponse> arg1, RestRequestAsyncHandle arg2) =>
+			{
+				string content = arg1.Content;
+				VehicleCloudResponse data = arg1.Data;
+				var result = data.message;
 				Device.BeginInvokeOnMainThread(() =>
 				{
-					readMessage.Text = json;
+					writeMessage.Text = result;
 				});
-			}
 
-			
+			});
+
+
+			//Device.BeginInvokeOnMainThread(() =>
+			//{
+			//	readMessage.Text = totalString;
+			//});
 		}
 
         private void SetMark(double lat, double lng) {
@@ -141,17 +178,17 @@ namespace XFDevGPS1
 					gps_longitude = gpsStatus.lng,
 					mileage = gpsStatus.mileage,
 					vehicle_speed = gpsStatus.speed,
-					dt = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds,
+					dt = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds,
                 });
 				numberOfETrackItems++;
 				writeMessage.Text = $"{numberOfETrackItems}";
 
-				if (numberOfETrackItems >= 3)
+				if (numberOfETrackItems >= 20)
 				{
 					ETrackItem[] eTrackItems = eTrackDatabase.GetItems().ToArray();
 					eTrackDatabase.DeleteAll();
 					numberOfETrackItems = 0;
-					UploadToS3(eTrackItems);
+					Task.Run(() => UploadToS3(eTrackItems));
 				}
 
 

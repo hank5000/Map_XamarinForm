@@ -16,7 +16,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <JavaMaximumHeapSize>2G</JavaMaximumHeapSize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -123,6 +123,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp.Android">
+      <HintPath>..\packages\DotNetDevAddict.RestSharp.Portable.0.1.0-beta6\lib\MonoAndroid10\RestSharp.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\packages\DotNetDevAddict.RestSharp.Portable.0.1.0-beta6\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XFDevGPS1\XFDevGPS1.csproj">
@@ -137,6 +143,7 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="BaseUrl_Droid.cs" />
     <Compile Include="SQLite_Android.cs" />
+    <Compile Include="SaveAndLoad.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

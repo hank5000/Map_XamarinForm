@@ -121,6 +121,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp.iOS">
+      <HintPath>..\packages\DotNetDevAddict.RestSharp.Portable.0.1.0-beta6\lib\XamariniOS10\RestSharp.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\packages\DotNetDevAddict.RestSharp.Portable.0.1.0-beta6\lib\XamariniOS10\RestSharp.Portable.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XFDevGPS1\XFDevGPS1.csproj">
@@ -149,6 +155,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="BaseUrl_iOS.cs" />
     <Compile Include="SQLite_iOS.cs" />
+    <Compile Include="SaveAndLoad.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Content\map.html" />

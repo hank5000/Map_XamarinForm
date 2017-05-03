@@ -12,16 +12,17 @@ namespace XFDevGPS1
 		public static string DEFAULT_STRING = string.Empty;
         public ETrackItem()
         {
+			
         }
 
         [PrimaryKey, AutoIncrement]
         public int ID {get;set;}
 		public long user_id { get; set; } = DEFAULT_LONG;
 		public string car_id { get; set; } = DEFAULT_STRING;
-		public long dt { get; set; } = DEFAULT_LONG;
+		public long dt { get; set; } = DEFAULT_LONG; //date and time
 		public int time_interval { get; set; } = 0;
-		public int engine_load { get; set; } = DEFAULT_INT;
-        public int engine_rpm { get; set; } = DEFAULT_INT;
+		public int engine_load { get; set; } = 0;
+        public int engine_rpm { get; set; } = 0;
         public int vehicle_speed { get; set; } = DEFAULT_INT;
         public int engine_start_time { get; set; } = DEFAULT_INT;
         public int temperature_engine_coolant { get; set; } = DEFAULT_INT;
@@ -43,5 +44,6 @@ namespace XFDevGPS1
         public int wiper { get; set; } = DEFAULT_INT;
         public int gear_position { get; set; } = DEFAULT_INT;
         public int esp_status { get; set; } = DEFAULT_INT;
+		public string event_video_file { get; set; } = string.Empty;
     }
 }
